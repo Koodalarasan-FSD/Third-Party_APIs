@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz</title>
+</head>
+
+<body>
+
+    <h2>Trivia Quiz</h2>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    <form action="/start_quiz" method="post">
+        <label for="category">Select Category:</label>
+        <select id="category" name="category">
+            <!-- Add options for different categories -->
+            <option value="9">General Knowledge</option>
+            <option value="11">Film</option>
+            <!-- Add more categories as needed -->
+        </select>
+
+        <label for="difficulty">Select Difficulty:</label>
+        <select id="difficulty" name="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <label for="num_questions">Number of Questions:</label>
+        <input type="number" id="num_questions" name="num_questions" min="1" max="10" required>
+
+        <button type="submit">Start Quiz</button>
+    </form>
+
+</body>
+
+</html>

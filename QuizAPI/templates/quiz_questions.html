@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz - Questions</title>
+</head>
+
+<body>
+
+    <h2>Trivia Quiz</h2>
+
+    <form action="/submit_quiz" method="post">
+        {% for question in questions %}
+            <div>
+                <p>{{ question.question }}</p>
+                <ul>
+                    {% for option in question.incorrect_answers %}
+                        <li>
+                            <input type="radio" id="{{ option }}" name="question_{{ loop.index }}" value="{{ option }}">
+                            <label for="{{ option }}">{{ option }}</label>
+                        </li>
+                    {% endfor %}
+                    <li>
+                        <input type="radio" id="{{ question.correct_answer }}" name="question_{{ loop.index }}" value="{{ question.correct_answer }}">
+                        <label for="{{ question.correct_answer }}">{{ question.correct_answer }}</label>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+
+        <button type="submit">Submit Answers</button>
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+
+        }
+
+        .score {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .question {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            text-align: left;
+        }
+
+        .correct_answer {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .incorrect_answer {
+            color: #FF5252;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h2>Quiz Results</h2>
+
+    {% if score is defined %}
+
+    <p class="score">
+
+        Your Score:{{score}}/{{total_questions}}
+
+    </p>
+
+    {% endif %}
+
+
+    {% if questions is defined %}
+
+    {% for index,question in enumerate(questions) %}
+
+    <div class="question">
+
+        <p><strong>Question {{ index+1 }}:</strong>{{question.question}}</p>
+
+        {% if question.correct_answer == user_answers[index] %}
+
+        <p class="correct_answer">Your Answer: {{user_answers[index]}} (correct)</p>
+
+        {%else %}
+
+        <p class="incorrect_answer">Your Answer: {{user_answers[index]}} (Incorrect)</p>
+
+        <p class="correct_answer">Your Answer: {{question.correct_answer}}</p>
+
+        {% endif %}
+   
+    </div>
+    
+    {% endfor %}
+    
+    {% endif %}
+</body>

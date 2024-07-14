@@ -1,0 +1,35 @@
+<!-- templates/index_recipe_finder.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+</head>
+
+<body>
+    <h1>Recipe Finder</h1>
+
+    <form action="/getrecipe" method="post">
+        <label for="search_query">Enter an ingredient or dish:</label>
+        <input type="text" id="search_query" name="search_query" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if recipes %}
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <h3>{{ recipe.recipe.label }}</h3>
+                    <p>{{ recipe.recipe.source }}</p>
+                    <img src="{{ recipe.recipe.image }}" alt="{{ recipe.recipe.label }}">
+                    <a href="{{ recipe.recipe.url }}" target="_blank">Get Recipe</a>
+                </li>
+            {% endfor %}
+        </ul>
+    
+    {% endif %}
+</body>
+
+</html>
