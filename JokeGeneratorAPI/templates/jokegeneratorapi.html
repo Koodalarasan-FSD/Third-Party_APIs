@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+</head>
+
+<body>
+    <h2>Random Joke Generator</h2>
+
+    <button onclick="getRandomJoke()">Get Random Joke</button>
+
+    <div id="jokeContainer"></div>
+
+    <script>
+        function getRandomJoke() {
+            // Fetch a random joke from the API
+            fetch('/get_random_joke')
+                .then(response => response.json())
+                .then(data => {
+                    
+                    // Display the joke on the webpage
+                    const jokeContainer = document.getElementById('jokeContainer');
+                    jokeContainer.innerHTML = '';
+
+                    if (data.setup && data.delivery) {
+                        
+                        // Create new HTML elements to display the joke
+                        const setupElement = document.createElement('p');
+                        setupElement.textContent = data.setup;
+
+                        const deliveryElement = document.createElement('p');
+                        deliveryElement.textContent = data.delivery;
+
+                        // Append the elements to the container
+                        jokeContainer.appendChild(setupElement);
+                        jokeContainer.appendChild(deliveryElement);
+                    } 
+                    
+                    else if (data.joke) {
+                        
+                        // Create a new HTML element to display the joke
+                        const jokeElement = document.createElement('p');
+                        jokeElement.textContent = data.joke;
+
+                        // Append the element to the container
+                        jokeContainer.appendChild(jokeElement);
+                    }
+                    
+                    else {
+                        
+                        jokeContainer.innerHTML = '<p>Error fetching joke. Please trying again</p>';
+                    }
+
+                })
+
+                .catch(error => {
+                    //Handle errors
+                    const jokeContainer = document.getElementById('jokeContainer');
+                    jokeContainer.innerHTML = '<p>Error fetching joke:${error.message}</p>';
+                });
+        }
+    </script>
+</body>
+
+</html>

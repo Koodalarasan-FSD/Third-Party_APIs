@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login using API</title>
+  <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/loginusingapi_pagestyle.css">
+</head>
+
+<body>
+  <div class="login-box">
+    <h2>Login</h2>
+    <form action="/check_user" method="POST">
+      <div class="user-box">
+        <input type="email" name="email" required />
+        <label>Username</label>
+      </div>
+      <div class="user-box">
+        <input type="password" name="password" id="passwordInput" required />
+        <label>Password</label>
+      </div>
+      <div class="viewpassword">
+        <input type="checkbox" id="showPasswordCheckbox"> Show Password
+      </div>
+      <script>
+
+        // Get references to the checkbox and password input
+        const showPasswordCheckbox = document.getElementById('showPasswordCheckbox');
+        const passwordInput = document.getElementById('passwordInput');
+
+        // Add event listener to the checkbox
+        showPasswordCheckbox.addEventListener('change', () => {
+          if (showPasswordCheckbox.checked) {
+            // If checkbox is checked, change input type to text (unhide password)
+            passwordInput.type = 'text';
+          } else {
+            // If checkbox is unchecked, change input type back to password (hide password)
+            passwordInput.type = 'password';
+          }
+        });
+      </script>
+      <input type="submit">
+        
+    </form>
+  </div>
+</body>
+
+</html>

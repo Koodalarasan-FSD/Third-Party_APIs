@@ -1,0 +1,35 @@
+<!-- templates/index_recipe_finder.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Database</title>
+</head>
+
+<body>
+    <h1>Food Database</h1>
+
+    <form action="/getfood" method="post">
+        <label for="search_query">Enter an FOOD ITEM:</label>
+        <input type="text" id="search_query" name="search_query" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if foods %}
+        <ul>
+            {% for food in foods %}
+                <li>
+                    <h3>{{ food.food.label }}</h3>
+                    <p>{{ food.food.category }}</p>
+                    <img src="{{ food.food.image }}" alt="{{ food.food.label }}">
+                    <p>Calories: {{ food.food.nutrients.ENERC_KCAL }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    
+    {% endif %}
+</body>
+
+</html>

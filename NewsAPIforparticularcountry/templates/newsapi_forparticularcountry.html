@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Headlines</title>
+</head>
+
+<body>
+    <h1>Top News Headlines</h1>
+
+    <form action="/getnews" method="post">
+        <label for="country">Select a country:</label>
+        <select id="countryname" name="countryname">
+            <option></option>
+            <option value="ar">Argentina (AR)</option>
+            <option value="au">Australia (AU)</option>
+            <option value="br">Brazil (BR)</option>
+            <option value="ca">Canada (CA)</option>
+            <option value="cn">China (CN)</option>
+            <option value="fr">France (FR)</option>
+            <option value="de">Germany (DE)</option>
+            <option value="in">India (IN)</option>
+            <option value="jp">Japan (JP)</option>
+            <option value="mx">Mexico (MX)</option>
+            <option value="ru">Russia (RU)</option>
+            <option value="za">South Africa (ZA)</option>
+            <option value="gb">United Kingdom (GB)</option>
+            <option value="us">United States (US)</option>
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <h3>{{ article.title }}</h3>
+                    <p>{{ article.description }}</p>
+                    <a href="{{ article.url }}" target="_blank">Read more</a>
+                </li>
+            {% endfor %}
+        </ul>
+    
+    {% endif %}
+</body>
+
+</html>

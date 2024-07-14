@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+
+<body>
+
+    <h2>Weather App</h2>
+
+    <div id="weatherInfo"></div>
+
+    
+
+    <button onclick="getLocation()">Get Current Weather</button>
+
+   
+    
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showWeather);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    
+        function showWeather(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+    
+            // Call the server to get weather based on current location
+            fetch('/get_weather', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `latitude=${latitude}&longitude=${longitude}`,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Update the weather information
+                    const weatherInfo = document.getElementById('weatherInfo');
+                    weatherInfo.innerHTML = `
+                        <div>
+                            <p>Weather in ${data.city}:</p>
+                            <p>Description: ${data.description}</p>
+                            <p>Temperature: ${data.temperature} °C</p>
+                        </div>
+                    `;
+                })
+                .catch(error => {
+                    // Handle errors
+                    const weatherInfo = document.getElementById('weatherInfo');
+                    weatherInfo.innerHTML = `<p>Error fetching weather data: ${error}</p>`;
+                });
+        }
+    </script>
+    
+</body>
+
+</html>
